@@ -4925,7 +4925,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &39427723
 GameObject:
@@ -5003,6 +5003,18 @@ PrefabInstance:
     - target: {fileID: 5723109320189586884, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
       propertyPath: m_Name
       value: FlumeWaterFlowFar
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.9433962
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.77664447
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.6808473
       objectReference: {fileID: 0}
     - target: {fileID: 7161056576372381455, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
       propertyPath: m_RootOrder
@@ -5952,9 +5964,21 @@ PrefabInstance:
       propertyPath: InitialModule.startLifetime.scalar
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6083184909564016972, guid: 7541b0f20e432374f972137ccc02a719, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.9811321
+      objectReference: {fileID: 0}
+    - target: {fileID: 6083184909564016972, guid: 7541b0f20e432374f972137ccc02a719, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.8491053
+      objectReference: {fileID: 0}
+    - target: {fileID: 6083184909564016972, guid: 7541b0f20e432374f972137ccc02a719, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.71733713
+      objectReference: {fileID: 0}
     - target: {fileID: 7161731997585783222, guid: 7541b0f20e432374f972137ccc02a719, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7161731997585783222, guid: 7541b0f20e432374f972137ccc02a719, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6091,9 +6115,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlumeWaterFallMid
       objectReference: {fileID: 0}
+    - target: {fileID: 6083184909564016972, guid: 7541b0f20e432374f972137ccc02a719, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6083184909564016972, guid: 7541b0f20e432374f972137ccc02a719, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.8293262
+      objectReference: {fileID: 0}
+    - target: {fileID: 6083184909564016972, guid: 7541b0f20e432374f972137ccc02a719, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.759434
+      objectReference: {fileID: 0}
     - target: {fileID: 7161731997585783222, guid: 7541b0f20e432374f972137ccc02a719, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7161731997585783222, guid: 7541b0f20e432374f972137ccc02a719, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6305,13 +6341,125 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5540463349410308734, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 5540463349410308734, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: m_RenderMode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5540463349410308734, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5540463349410308734, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5540463349410308734, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: e798a439d822be440b6481d0b4213f8f, type: 2}
     - target: {fileID: 5723109320189586884, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
       propertyPath: m_Name
       value: FlumeWaterFallMid
       objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: lengthInSec
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: ShapeModule.type
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: TrailModule.mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: ColorModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: TrailModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: EmissionModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: InitialModule.rotation3D
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: ColorBySpeedModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: TrailModule.widthOverTrail.scalar
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: InitialModule.gravityModifier.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: TrailModule.colorOverTrail.maxColor.b
+      value: 0.990566
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: TrailModule.colorOverTrail.maxColor.g
+      value: 0.85095686
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: TrailModule.colorOverTrail.maxColor.r
+      value: 0.7242346
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: TrailModule.colorOverLifetime.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: TrailModule.colorOverLifetime.maxColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: TrailModule.colorOverLifetime.maxColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7161056576372381455, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7161056576372381455, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6411,9 +6559,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlumeWaterFlowClose
       objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.80944365
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082509580658857973, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.7028302
+      objectReference: {fileID: 0}
     - target: {fileID: 7161056576372381455, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 7161056576372381455, guid: 501eed810b8cf6c40b2082556d4437f5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6466,10 +6626,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1916091235}
+  - component: {fileID: 1916091237}
+  - component: {fileID: 1916091238}
   - component: {fileID: 1916091234}
   - component: {fileID: 1916091236}
-  - component: {fileID: 1916091238}
-  - component: {fileID: 1916091237}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -6616,6 +6776,18 @@ PrefabInstance:
     - target: {fileID: 5723560383132730237, guid: 7541b0f20e432374f972137ccc02a719, type: 3}
       propertyPath: m_Name
       value: FlumeWaterFallFar
+      objectReference: {fileID: 0}
+    - target: {fileID: 6083184909564016972, guid: 7541b0f20e432374f972137ccc02a719, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6083184909564016972, guid: 7541b0f20e432374f972137ccc02a719, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.7801852
+      objectReference: {fileID: 0}
+    - target: {fileID: 6083184909564016972, guid: 7541b0f20e432374f972137ccc02a719, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.6556604
       objectReference: {fileID: 0}
     - target: {fileID: 7161731997585783222, guid: 7541b0f20e432374f972137ccc02a719, type: 3}
       propertyPath: m_RootOrder

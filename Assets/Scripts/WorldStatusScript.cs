@@ -11,23 +11,15 @@ public class WorldStatusScript: MonoBehaviour
     private int noodleScore = 0;
     public int FlumeStatus
     {
-        get
-        {
-            return this.flumeStatus;
-        }
-        set
-        {
+        get => this.flumeStatus;
+        set =>
             //Do checks here to make sure things don't break
             flumeStatus = value;
-        }
     }
 
     public int NoodleScore
     {
-        get
-        {
-            return this.noodleScore;
-        }
+        get => this.noodleScore;
         set
         {
             //Do Checks here
