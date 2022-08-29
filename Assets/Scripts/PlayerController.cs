@@ -90,6 +90,34 @@ public class PlayerController : MonoBehaviour
         grabbableNoodleCollider = null;
     }
 
+
+    private void CheckAndDeployFlumeClose()
+    {
+        // do some checking for score to close the flume
+    }
+
+    private void FlumeClose()
+    {
+        int flumesOpen = worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus;
+        
+        if (flumesOpen == 3)
+        {
+            worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus = 2;
+        }
+
+        if (flumesOpen == 2)
+        {
+            worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus = 1;
+        }
+
+        if (flumesOpen == 1)
+        {
+            //DO vicotry stuff here? Run a win method or something?
+        }
+        
+    }
+    
+    
     // Nasty Pair of methods that check to see whether the player can move up or down
     bool OpenUp()
     {
