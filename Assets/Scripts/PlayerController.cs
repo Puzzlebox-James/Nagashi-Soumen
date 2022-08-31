@@ -17,12 +17,13 @@ public class PlayerController : MonoBehaviour
 
     private Collider2D grabbableNoodleCollider;
     private Coroutine isMoving;
-
+    
 
     private void Update()
     {
        CheckAndDeployVert();
        CheckAndDeployGrab();
+       CheckAndDeployFlumeClose();
     }
 
     // Runs every frame per Updates call
@@ -30,7 +31,7 @@ public class PlayerController : MonoBehaviour
     // Run a check method to see if we can go that way, where we are and where we need to go, then start the move and go there.
     private void CheckAndDeployVert()
     {
-        if (Input.GetButtonDown("Vertical") == true && isMoving == null)
+        if (Input.GetButton("Vertical") == true && isMoving == null)
         {
             if (Input.GetAxis("Vertical") > 0)
             {
@@ -93,61 +94,95 @@ public class PlayerController : MonoBehaviour
 
     private void CheckAndDeployFlumeClose()
     {
-        // do some checking for score to close the flume
+        int flumesOpen = worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus;
+        int noodleScore = worldStatusCheck.GetComponent<WorldStatusScript>().NoodleScore;
+
+        switch (flumesOpen)
+        {
+            case 3:
+                if (noodleScore > 1 && Input.GetKeyDown(KeyCode.E)) //break this out into settable int in the inspector.
+                {
+                    FlumeClose(3);
+                }
+                break;
+            case 2:
+                if (noodleScore > 2 && Input.GetKeyDown(KeyCode.E))
+                {
+                    FlumeClose(2);
+                }
+                break;
+            case 1:
+                //Victory?
+                break;
+            default:
+                Debug.Log("Busted case checking on flumes closing");
+                break;
+        }
     }
 
-    private void FlumeClose()
+    private void FlumeClose(int flumecase)
     {
-        int flumesOpen = worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus;
-        
-        if (flumesOpen == 3)
+        switch (flumecase)
         {
-            worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus = 2;
-        }
+            case 3:
+                worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus = 2;
+                
+                if (!(transform.position == pointOfInteractionMid.position || transform.position == pointOfInteractionClose.position))
+                {
+                    if (isMoving != null)
+                    {
+                        StopCoroutine(isMoving); // Covers the edge case where the player closes flume they are currently over.
+                    }
+                    isMoving = StartCoroutine(Move(pointOfInteractionMid.position));
+                }
 
-        if (flumesOpen == 2)
-        {
-            worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus = 1;
+                //Run an animation / put a thing over the top flume. Disable the particles.
+                break;
+            
+            case 2:
+                worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus = 1;
+                
+                if (transform.position != pointOfInteractionClose.position)
+                {
+                    if (isMoving != null)
+                    {
+                        StopCoroutine(isMoving); // Covers the edge case where the player closes flume they are currently over.
+                    }
+                    isMoving = StartCoroutine(Move(pointOfInteractionClose.position));
+                }
+                //animations, ect.
+                break;
+            
+            case 1:
+                //Run VICTORY!
+                break;
+            default:
+                Debug.Log("Error in flume status or FlumeClose method.");
+            break;
         }
-
-        if (flumesOpen == 1)
-        {
-            //DO vicotry stuff here? Run a win method or something?
-        }
-        
     }
     
     
     // Nasty Pair of methods that check to see whether the player can move up or down
-    bool OpenUp()
+    private bool OpenUp()
     {
-        int flumeCheck = worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus;
+        var flumeCheck = worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus;
 
         if (transform == (pointOfInteractionMid || pointOfInteractionClose) && flumeCheck == 3)
         {
             return true;
         }
-        if (transform == pointOfInteractionClose && flumeCheck == 2)
-        {
-            return true;
-        }
-        
-        return false;
+        return transform.position == pointOfInteractionClose.position && flumeCheck == 2;
     }
     bool OpenDown()
     {
-        int flumeCheck = worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus;
+        var flumeCheck = worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus;
 
         if (transform == (pointOfInteractionMid || pointOfInteractionFar) && flumeCheck == 3)
         {
             return true;
         }
-        if (transform == pointOfInteractionMid && flumeCheck == 2)
-        {
-            return true;
-        }
-        
-        return false;
+        return transform.position == pointOfInteractionMid.position && flumeCheck == 2;
     }
 
     //This Move coroutine takes a position Vec3 argument and moves the object it's on to that location.

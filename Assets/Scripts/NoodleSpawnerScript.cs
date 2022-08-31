@@ -22,10 +22,10 @@ public class NoodleSpawnerScript : MonoBehaviour
 
     void Update()
     {
-        //if(Input.GetButtonDown("Fire1"))
-        //{
-            //Instantiate(noodlePrefab[Random.Range(0,noodlePrefab.Length)], spawnLocations[Random.Range(0, spawnLocations.Length)].position, quaternion.identity);
-        //}
+        if(Input.GetButtonDown("Fire1"))
+        {
+            Instantiate(noodlePrefab[Random.Range(0,noodlePrefab.Length)], spawnLocations[Random.Range(0, spawnLocations.Length)].position, quaternion.identity);
+        }
     }
 
     IEnumerator TimedSpawns()

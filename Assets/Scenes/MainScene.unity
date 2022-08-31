@@ -5227,9 +5227,9 @@ MonoBehaviour:
   minTimeBetweenNoodles: 0.5
   maxTimeBetweenNoodles: 2
   spawnLocations:
-  - {fileID: 1077376723}
-  - {fileID: 398617284}
   - {fileID: 1572620248}
+  - {fileID: 398617284}
+  - {fileID: 1077376723}
   noodlePrefab:
   - {fileID: 6457348421276771543, guid: f93ebb4e7a5f9424fb4cbfb09355e17f, type: 3}
   - {fileID: 6040906844493318181, guid: e6845ef63387907488b97a9bbcce34a5, type: 3}
@@ -6504,6 +6504,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flumeStatus: 3
   noodleScoreText: {fileID: 1509654363}
+  noodleScore: 0
 --- !u!4 &1777959543
 Transform:
   m_ObjectHideFlags: 0

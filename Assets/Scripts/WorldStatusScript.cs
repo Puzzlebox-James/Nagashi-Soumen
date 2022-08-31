@@ -8,7 +8,7 @@ public class WorldStatusScript: MonoBehaviour
     [SerializeField] private int flumeStatus;
     [SerializeField] private Text noodleScoreText;
 
-    private int noodleScore = 0;
+    [SerializeField] int noodleScore = 0;
     public int FlumeStatus
     {
         get => this.flumeStatus;
