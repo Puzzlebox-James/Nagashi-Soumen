@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -31,36 +32,31 @@ public class PlayerController : MonoBehaviour
     // Run a check method to see if we can go that way, where we are and where we need to go, then start the move and go there.
     private void CheckAndDeployVert()
     {
-        if (Input.GetButton("Vertical") == true && isMoving == null)
+        if (Input.GetButtonDown("Vertical") != true) return;
+        if (Input.GetAxis("Vertical") > 0)
         {
-            if (Input.GetAxis("Vertical") > 0)
+            if (!OpenUp()) return;
+            if (transform.position == pointOfInteractionMid.position)
             {
-                if (OpenUp())
-                {
-                    if (transform.position == pointOfInteractionMid.position)
-                    {
-                        isMoving = StartCoroutine(Move(pointOfInteractionFar.position));
-                    }
-                    if(transform.position == pointOfInteractionClose.position)
-                    {
-                        isMoving = StartCoroutine(Move(pointOfInteractionMid.position));
-                    }
-                }
+                isMoving = StartCoroutine(Move(pointOfInteractionFar.position));
             }
-            else if (Input.GetAxis("Vertical") < 0)
+            if(transform.position == pointOfInteractionClose.position)
             {
-                if (OpenDown())
-                {
-                    if (transform.position == pointOfInteractionMid.position)
-                    {
-                        isMoving = StartCoroutine(Move(pointOfInteractionClose.position));
-                    }
+                Debug.Log("yep");
+                isMoving = StartCoroutine(Move(pointOfInteractionMid.position));
+            }
+        }
+        else if (Input.GetAxis("Vertical") < 0)
+        {
+            if (!OpenDown()) return;
+            if (transform.position == pointOfInteractionMid.position)
+            {
+                isMoving = StartCoroutine(Move(pointOfInteractionClose.position));
+            }
 
-                    if (transform.position == pointOfInteractionFar.position)
-                    {
-                        isMoving = StartCoroutine(Move(pointOfInteractionMid.position));
-                    }
-                }
+            if (transform.position == pointOfInteractionFar.position)
+            {
+                isMoving = StartCoroutine(Move(pointOfInteractionMid.position));
             }
         }
     }
@@ -94,8 +90,8 @@ public class PlayerController : MonoBehaviour
 
     private void CheckAndDeployFlumeClose()
     {
-        int flumesOpen = worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus;
-        int noodleScore = worldStatusCheck.GetComponent<WorldStatusScript>().NoodleScore;
+        var flumesOpen = worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus;
+        var noodleScore = worldStatusCheck.GetComponent<WorldStatusScript>().NoodleScore;
 
         switch (flumesOpen)
         {
@@ -168,8 +164,9 @@ public class PlayerController : MonoBehaviour
     {
         var flumeCheck = worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus;
 
-        if (transform == (pointOfInteractionMid || pointOfInteractionClose) && flumeCheck == 3)
+        if ((transform.position == pointOfInteractionMid.position || transform.position == pointOfInteractionClose.position) && flumeCheck == 3)
         {
+            Debug.Log("OpenupSuccess");
             return true;
         }
         return transform.position == pointOfInteractionClose.position && flumeCheck == 2;
