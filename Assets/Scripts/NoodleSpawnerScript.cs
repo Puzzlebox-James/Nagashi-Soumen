@@ -9,9 +9,7 @@ public class NoodleSpawnerScript : MonoBehaviour
 {
     [SerializeField] private float minTimeBetweenNoodles;
     [SerializeField] private float maxTimeBetweenNoodles;
-
     [SerializeField] private Transform[] spawnLocations;
-    
     [SerializeField] private GameObject[] noodlePrefab;
 
 

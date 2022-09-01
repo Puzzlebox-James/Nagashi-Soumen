@@ -6502,6 +6502,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e62cfdb1320efea47bca34d57b7128f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstNoodleCloseFlumeScore: 1
+  secondNoodleCloseFlumeScore: 2
+  winNoodleCloseFlumeScore: 3
   flumeStatus: 3
   noodleScoreText: {fileID: 1509654363}
   noodleScore: 0

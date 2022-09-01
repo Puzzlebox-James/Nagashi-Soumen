@@ -8,14 +8,14 @@ using UnityEngine.EventSystems;
 public class PlayerController : MonoBehaviour
 {
     
-    // Get references to stuff to use for stuff
+    // Get references and set gameplay settings
     [SerializeField] private Transform pointOfInteractionFar;
     [SerializeField] private Transform pointOfInteractionMid;
     [SerializeField] private Transform pointOfInteractionClose;
     [SerializeField] private GameObject worldStatusCheck;
     [SerializeField] private float moveDuration;
-
-
+    
+    // private temp storage vars
     private Collider2D grabbableNoodleCollider;
     private Coroutine isMoving;
     
@@ -26,9 +26,10 @@ public class PlayerController : MonoBehaviour
        CheckAndDeployGrab();
        CheckAndDeployFlumeClose();
     }
-
+    
+    // ================================================= UP AND DOWN MOVEMENT =============================================== //
     // Runs every frame per Updates call
-    // If there is a player input button down event and if we aren't already moving, find out which way we're going.
+    // If there is a player input button down event (when we are at a point of interaction), find out which way we're going.
     // Run a check method to see if we can go that way, where we are and where we need to go, then start the move and go there.
     private void CheckAndDeployVert()
     {
@@ -42,7 +43,6 @@ public class PlayerController : MonoBehaviour
             }
             if(transform.position == pointOfInteractionClose.position)
             {
-                Debug.Log("yep");
                 isMoving = StartCoroutine(Move(pointOfInteractionMid.position));
             }
         }
@@ -60,105 +60,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    
 
-    private void CheckAndDeployGrab()
-    {
-        if (Input.GetButtonDown("Jump"))
-        {
-            if (grabbableNoodleCollider != null)
-            {
-                Destroy(grabbableNoodleCollider.gameObject);
-                worldStatusCheck.GetComponent<WorldStatusScript>().NoodleScore++;
-            }
-            
-            // DO miss stuff here
-        }
-    }
-
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        grabbableNoodleCollider = other;
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        grabbableNoodleCollider = null;
-    }
-
-
-    private void CheckAndDeployFlumeClose()
-    {
-        var flumesOpen = worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus;
-        var noodleScore = worldStatusCheck.GetComponent<WorldStatusScript>().NoodleScore;
-
-        switch (flumesOpen)
-        {
-            case 3:
-                if (noodleScore > 1 && Input.GetKeyDown(KeyCode.E)) //break this out into settable int in the inspector.
-                {
-                    FlumeClose(3);
-                }
-                break;
-            case 2:
-                if (noodleScore > 2 && Input.GetKeyDown(KeyCode.E))
-                {
-                    FlumeClose(2);
-                }
-                break;
-            case 1:
-                //Victory?
-                break;
-            default:
-                Debug.Log("Busted case checking on flumes closing");
-                break;
-        }
-    }
-
-    private void FlumeClose(int flumecase)
-    {
-        switch (flumecase)
-        {
-            case 3:
-                worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus = 2;
-                
-                if (!(transform.position == pointOfInteractionMid.position || transform.position == pointOfInteractionClose.position))
-                {
-                    if (isMoving != null)
-                    {
-                        StopCoroutine(isMoving); // Covers the edge case where the player closes flume they are currently over.
-                    }
-                    isMoving = StartCoroutine(Move(pointOfInteractionMid.position));
-                }
-
-                //Run an animation / put a thing over the top flume. Disable the particles.
-                break;
-            
-            case 2:
-                worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus = 1;
-                
-                if (transform.position != pointOfInteractionClose.position)
-                {
-                    if (isMoving != null)
-                    {
-                        StopCoroutine(isMoving); // Covers the edge case where the player closes flume they are currently over.
-                    }
-                    isMoving = StartCoroutine(Move(pointOfInteractionClose.position));
-                }
-                //animations, ect.
-                break;
-            
-            case 1:
-                //Run VICTORY!
-                break;
-            default:
-                Debug.Log("Error in flume status or FlumeClose method.");
-            break;
-        }
-    }
-    
-    
     // Nasty Pair of methods that check to see whether the player can move up or down
     private bool OpenUp()
     {
@@ -166,7 +68,6 @@ public class PlayerController : MonoBehaviour
 
         if ((transform.position == pointOfInteractionMid.position || transform.position == pointOfInteractionClose.position) && flumeCheck == 3)
         {
-            Debug.Log("OpenupSuccess");
             return true;
         }
         return transform.position == pointOfInteractionClose.position && flumeCheck == 2;
@@ -201,5 +102,109 @@ public class PlayerController : MonoBehaviour
         transform.position = targetPosition;
         isMoving = null;
     }
+    
+    
+    // =================================================== NOODLE GRABBING ================================================ //
+    // Runs every frame per Updates call. Check to see if we pressed 'grab', then check to see if there was a noodle.
+    // If there was, destroy it, notify score and animation. If there wasn't DO MISS STUFF
+    private void CheckAndDeployGrab()
+    {
+        if (!Input.GetButtonDown("Jump")) return;
+        if (grabbableNoodleCollider != null)
+        {
+            Destroy(grabbableNoodleCollider.gameObject);
+            worldStatusCheck.GetComponent<WorldStatusScript>().NoodleScore++;
+        }
+            
+        // DO miss stuff here
+    }
+    
+    // Store noodle grabbable status.
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        grabbableNoodleCollider = other;
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        grabbableNoodleCollider = null;
+    }
 
+
+    // =============================================== FLUME CLOSING AND GAME ADVANCEMENT ============================================= //
+    // Runs every frame per Updates call. Get information about the world status to check and close sequential flumes if acceptable or WIN
+    private void CheckAndDeployFlumeClose()
+    {
+        if (!Input.GetButtonDown("Submit")) return;
+        var flumesOpen = worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus;
+        var noodleScore = worldStatusCheck.GetComponent<WorldStatusScript>().NoodleScore;
+        var firstNoodleCloseScore = worldStatusCheck.GetComponent<WorldStatusScript>().FirstNoodleCloseFlumeScore;
+        var secondNoodleCloseScore = worldStatusCheck.GetComponent<WorldStatusScript>().SecondNoodleCloseFlumeScore;
+        var winNoodleCloseScore = worldStatusCheck.GetComponent<WorldStatusScript>().WinNoodleCloseFlumeScore;
+
+        switch (flumesOpen)
+        {
+            case 3:
+                if (noodleScore > firstNoodleCloseScore)
+                {
+                    FlumeClose(3);
+                }
+                break;
+            case 2:
+                if (noodleScore > secondNoodleCloseScore)
+                {
+                    FlumeClose(2);
+                }
+                break;
+            case 1:
+                //Victory?
+                break;
+            default:
+                Debug.Log("Busted case checking on flumes closing");
+                break;
+        }
+    }
+
+    // Actually does the closing of flumes by updating the world status, while checking and handling edge cases.
+    private void FlumeClose(int flumecase)
+    {
+        switch (flumecase)
+        {
+            case 3:
+                worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus = 2;
+                // (When setting the flume status, I can use the property that this is setting in world status to create and even to do animation stuff)
+                
+                if (!(transform.position == pointOfInteractionMid.position || transform.position == pointOfInteractionClose.position))
+                {
+                    if (isMoving != null)
+                    {
+                        StopCoroutine(isMoving); // Covers the edge case where the player closes flume they are currently over.
+                    }
+                    isMoving = StartCoroutine(Move(pointOfInteractionMid.position));
+                }
+
+                //Run an animation / put a thing over the top flume. Disable the particles. ( see property stuff )
+                break;
+            
+            case 2:
+                worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus = 1;
+                
+                if (transform.position != pointOfInteractionClose.position)
+                {
+                    if (isMoving != null)
+                    {
+                        StopCoroutine(isMoving); // Covers the edge case where the player closes flume they are currently over.
+                    }
+                    isMoving = StartCoroutine(Move(pointOfInteractionClose.position));
+                }
+                //animations, ect.
+                break;
+            
+            case 1:
+                //Run VICTORY!
+                break;
+            default:
+                Debug.Log("Error in flume status or FlumeClose method.");
+            break;
+        }
+    }
 }
