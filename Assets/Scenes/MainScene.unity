@@ -5624,6 +5624,7 @@ GameObject:
   - component: {fileID: 1054113910}
   - component: {fileID: 1054113909}
   - component: {fileID: 1054113911}
+  - component: {fileID: 1054113912}
   m_Layer: 0
   m_Name: MissChecker
   m_TagString: Untagged
@@ -5755,6 +5756,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ff7e55995c5f9a40b0882be1be2d258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1054113912
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1054113906}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2a72c7743e9940148986464418f116cb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1077376722
 GameObject:
   m_ObjectHideFlags: 0
@@ -6604,6 +6624,7 @@ GameObject:
   - component: {fileID: 1916091238}
   - component: {fileID: 1916091234}
   - component: {fileID: 1916091236}
+  - component: {fileID: 1916091239}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -6709,8 +6730,8 @@ BoxCollider2D:
   m_Offset: {x: -1.3271266, y: 0.13473815}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.49995264, y: 0.03100015}
-    oldSize: {x: 5.27, y: 3.1}
+    pivot: {x: 0.4913701, y: 0.20015837}
+    oldSize: {x: 4.72, y: 4.8}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -6740,6 +6761,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &1916091239
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916091233}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9563e2a5cda6fb141868feec235251c7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &767791698106803
 PrefabInstance:
   m_ObjectHideFlags: 0
