@@ -7,17 +7,22 @@ using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
-    
+
     // Get references and set gameplay settings
     [SerializeField] private Transform pointOfInteractionFar;
     [SerializeField] private Transform pointOfInteractionMid;
     [SerializeField] private Transform pointOfInteractionClose;
     [SerializeField] private GameObject worldStatusCheck;
     [SerializeField] private float moveDuration;
-    
-    // private temp storage vars
+
+    [SerializeField] private Animator animator;
+    [SerializeField] private AnimationClip noodleGrab;
+    [SerializeField] private AnimationClip noodleMiss;
+
+// private temp storage vars
     private Collider2D grabbableNoodleCollider;
     private Coroutine isMoving;
+    private Coroutine isGrabbing;
     
 
     private void Update()
@@ -34,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private void CheckAndDeployVert()
     {
         if (Input.GetButtonDown("Vertical") != true) return;
+        if (isGrabbing != null) return;
         if (Input.GetAxis("Vertical") > 0)
         {
             if (!OpenUp()) return;
@@ -114,10 +120,23 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(grabbableNoodleCollider.gameObject);
             worldStatusCheck.GetComponent<WorldStatusScript>().NoodleScore++;
-        }
             
+            animator.SetTrigger("Grab");
+            //isGrabbing = StartCoroutine(WaitForAnimation(noodleGrab.length));
+            
+        } else if(isGrabbing == null) {
+            animator.SetTrigger("GrabMiss");
+            isGrabbing = StartCoroutine(WaitForAnimation(noodleMiss.length));
+        }
         // DO miss stuff here
     }
+
+    private IEnumerator WaitForAnimation(float length)
+    {
+        yield return new WaitForSeconds(length);
+        isGrabbing = null;
+    }
+    
     
     // Store noodle grabbable status.
     private void OnTriggerEnter2D(Collider2D other)

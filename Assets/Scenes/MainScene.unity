@@ -5231,10 +5231,10 @@ MonoBehaviour:
   - {fileID: 398617284}
   - {fileID: 1077376723}
   noodlePrefab:
-  - {fileID: 6457348421276771543, guid: f93ebb4e7a5f9424fb4cbfb09355e17f, type: 3}
-  - {fileID: 6040906844493318181, guid: e6845ef63387907488b97a9bbcce34a5, type: 3}
-  - {fileID: 1481033330961325649, guid: 9e9f0df7907d6044a9b6322bc6343629, type: 3}
-  - {fileID: 2610321358614433064, guid: d4ea1a709df1b7642a75ac837af1b9f7, type: 3}
+  - {fileID: 7567220954351858595, guid: 24e31f5d79be61d448ea4558627dfc09, type: 3}
+  - {fileID: 2081463938143083881, guid: b3b22ed9747ff2d4299e8f202e75890d, type: 3}
+  - {fileID: 5227977940608709607, guid: b6fed09b9aaa516449c947e62a235fed, type: 3}
+  - {fileID: 6966411495902157737, guid: e2884bb8c575cd8449b3d07db5304a51, type: 3}
 --- !u!4 &318047896
 Transform:
   m_ObjectHideFlags: 0
@@ -6068,7 +6068,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 9a3ed12536ca798439a7ccc0e28aaa96, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -6714,6 +6714,9 @@ MonoBehaviour:
   pointOfInteractionClose: {fileID: 1186329783}
   worldStatusCheck: {fileID: 1777959541}
   moveDuration: 0.1
+  animator: {fileID: 1916091239}
+  noodleGrab: {fileID: 7400000, guid: b70a32ddc4586084289310d2c2af5fec, type: 2}
+  noodleMiss: {fileID: 7400000, guid: dcc428bc47e97ea488798d37660d1739, type: 2}
 --- !u!61 &1916091237
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6730,8 +6733,8 @@ BoxCollider2D:
   m_Offset: {x: -1.3271266, y: 0.13473815}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.4913701, y: 0.20015837}
-    oldSize: {x: 4.72, y: 4.8}
+    pivot: {x: 0.49995264, y: 0.03100015}
+    oldSize: {x: 5.27, y: 3.1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -6774,7 +6777,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 9563e2a5cda6fb141868feec235251c7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
