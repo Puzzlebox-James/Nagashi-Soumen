@@ -13,13 +13,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform pointOfInteractionMid;
     [SerializeField] private Transform pointOfInteractionClose;
     [SerializeField] private GameObject worldStatusCheck;
+    [SerializeField] private GameObject flumeAnimationGameObject;
+    
     [SerializeField] private float moveDuration;
 
-    [SerializeField] private Animator animator;
+    [SerializeField] private Animator playerAnimator;
     [SerializeField] private AnimationClip noodleGrab;
     [SerializeField] private AnimationClip noodleMiss;
 
-// private temp storage vars
+    // private temp storage vars
     private Collider2D grabbableNoodleCollider;
     private Coroutine isMoving;
     private Coroutine isGrabbing;
@@ -116,19 +118,18 @@ public class PlayerController : MonoBehaviour
     private void CheckAndDeployGrab()
     {
         if (!Input.GetButtonDown("Jump")) return;
-        if (grabbableNoodleCollider != null)
+        if (grabbableNoodleCollider != null && isGrabbing == null)
         {
             Destroy(grabbableNoodleCollider.gameObject);
             worldStatusCheck.GetComponent<WorldStatusScript>().NoodleScore++;
             
-            animator.SetTrigger("Grab");
+            playerAnimator.SetTrigger("Grab");
             //isGrabbing = StartCoroutine(WaitForAnimation(noodleGrab.length));
             
         } else if(isGrabbing == null) {
-            animator.SetTrigger("GrabMiss");
+            playerAnimator.SetTrigger("GrabMiss");
             isGrabbing = StartCoroutine(WaitForAnimation(noodleMiss.length));
         }
-        // DO miss stuff here
     }
 
     private IEnumerator WaitForAnimation(float length)
@@ -190,7 +191,7 @@ public class PlayerController : MonoBehaviour
         {
             case 3:
                 worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus = 2;
-                // (When setting the flume status, I can use the property that this is setting in world status to create and even to do animation stuff)
+                flumeAnimationGameObject.GetComponent<FlumeAnimation>().RunAnimation(2);
                 
                 if (!(transform.position == pointOfInteractionMid.position || transform.position == pointOfInteractionClose.position))
                 {

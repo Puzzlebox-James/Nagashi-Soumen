@@ -10,6 +10,7 @@ public class WorldStatusScript: MonoBehaviour
     [SerializeField] private int secondNoodleCloseFlumeScore = 2;
     [SerializeField] private int winNoodleCloseFlumeScore = 3;
     
+    
     // Serialized so I can look and debug.
     // Hopefully it's 'good practice'? encapsulated properties?
     [SerializeField] private int flumeStatus;
@@ -29,7 +30,8 @@ public class WorldStatusScript: MonoBehaviour
         set =>
             //Do checks here to make sure things don't break
             flumeStatus = value;
-    }
+
+}
 
     public int NoodleScore
     {
