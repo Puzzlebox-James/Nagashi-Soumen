@@ -176,6 +176,7 @@ public class PlayerController : MonoBehaviour
                 }
                 break;
             case 1:
+                FlumeClose(1);
                 //Victory?
                 break;
             default:
@@ -201,12 +202,11 @@ public class PlayerController : MonoBehaviour
                     }
                     isMoving = StartCoroutine(Move(pointOfInteractionMid.position));
                 }
-
-                //Run an animation / put a thing over the top flume. Disable the particles. ( see property stuff )
                 break;
             
             case 2:
                 worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus = 1;
+                flumeAnimationGameObject.GetComponent<FlumeAnimation>().RunAnimation(1);
                 
                 if (transform.position != pointOfInteractionClose.position)
                 {
@@ -216,10 +216,10 @@ public class PlayerController : MonoBehaviour
                     }
                     isMoving = StartCoroutine(Move(pointOfInteractionClose.position));
                 }
-                //animations, ect.
                 break;
             
             case 1:
+                flumeAnimationGameObject.GetComponent<FlumeAnimation>().RunAnimation(0);
                 //Run VICTORY!
                 break;
             default:

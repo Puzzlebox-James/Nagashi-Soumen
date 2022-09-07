@@ -23,6 +23,7 @@ public class FlumeAnimation : MonoBehaviour
         switch (flumestatus)
         {
             case 2:
+                flumeFlowFar.Clear();
                 flumeFlowFar.Stop();
                 flumeFallFar.Stop();
                 farFlumeShutAnimator.GetComponent<SpriteRenderer>().enabled = true;
@@ -30,11 +31,19 @@ public class FlumeAnimation : MonoBehaviour
                 break;
             
             case 1:
-                //dodo
+                flumeFlowMid.Clear();
+                flumeFlowMid.Stop();
+                flumeFallMid.Stop();
+                midFlumeShutAnimator.GetComponent<SpriteRenderer>().enabled = true;
+                midFlumeShutAnimator.SetTrigger("SecondShut");
                 break;
             
             case 0:
-                //dododo
+                flumeFlowClose.Clear();
+                flumeFlowClose.Stop();
+                flumeFallClose.Stop();
+                closeFlumeShutAnimator.GetComponent<SpriteRenderer>().enabled = true;
+                closeFlumeShutAnimator.SetTrigger("LastShut");
                 break;
             
             default:
