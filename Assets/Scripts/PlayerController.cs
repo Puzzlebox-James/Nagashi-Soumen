@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 {
 
     // Get references and set gameplay settings
+    [Header("These all require setting")]
     [SerializeField] private Transform pointOfInteractionFar;
     [SerializeField] private Transform pointOfInteractionMid;
     [SerializeField] private Transform pointOfInteractionClose;
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
 
     // private temp storage vars
     private Collider2D grabbableNoodleCollider;
+    private List<Collider2D> grabbableNoodleColliderOverflow = new List<Collider2D>();
     private Coroutine isMoving;
     private Coroutine isGrabbing;
     
@@ -113,8 +115,8 @@ public class PlayerController : MonoBehaviour
     
     
     // =================================================== NOODLE GRABBING ================================================ //
-    // Runs every frame per Updates call. Check to see if we pressed 'grab', then check to see if there was a noodle.
-    // If there was, destroy it, notify score and animation. If there wasn't DO MISS STUFF
+    // Runs every frame per Updates call. Check to see if we pressed 'grab', then check to see if there was a noodle(s).
+    // If there was, destroy it, notify score and animation. If there wasn't DO MISS
     private void CheckAndDeployGrab()
     {
         if (!Input.GetButtonDown("Jump")) return;
@@ -123,6 +125,14 @@ public class PlayerController : MonoBehaviour
             Destroy(grabbableNoodleCollider.gameObject);
             worldStatusCheck.GetComponent<WorldStatusScript>().NoodleScore++;
             
+            while (grabbableNoodleColliderOverflow.Count > 0)
+            {
+                var extraNood = grabbableNoodleColliderOverflow[0].gameObject;
+                grabbableNoodleColliderOverflow.RemoveAt(0);
+                Destroy(extraNood);
+                worldStatusCheck.GetComponent<WorldStatusScript>().NoodleScore++;
+            }
+
             playerAnimator.SetTrigger("Grab");
             //isGrabbing = StartCoroutine(WaitForAnimation(noodleGrab.length));
             
@@ -142,7 +152,13 @@ public class PlayerController : MonoBehaviour
     // Store noodle grabbable status.
     private void OnTriggerEnter2D(Collider2D other)
     {
-        grabbableNoodleCollider = other;
+        if (grabbableNoodleCollider !=null)
+            grabbableNoodleColliderOverflow.Add(other);
+        else
+        {
+            grabbableNoodleCollider = other;
+        }
+
     }
     private void OnTriggerExit2D(Collider2D other)
     {

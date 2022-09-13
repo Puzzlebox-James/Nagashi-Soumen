@@ -7,10 +7,12 @@ using Random = UnityEngine.Random;
 
 public class NoodleSpawnerScript : MonoBehaviour
 {
+    // Gameplay 'settings' regarding noodles.
     [SerializeField] private float minTimeBetweenNoodles;
     [SerializeField] private float maxTimeBetweenNoodles;
-    [SerializeField] private Transform[] spawnLocations;
-    [SerializeField] private GameObject[] noodlePrefab;
+    
+    [SerializeField] private List<Transform> spawnLocations;
+    [SerializeField] private List<GameObject> noodlePrefab;
 
 
     private void Start()
@@ -18,20 +20,28 @@ public class NoodleSpawnerScript : MonoBehaviour
         StartCoroutine(TimedSpawns());
     }
 
+    // Bust this out into it's own method (possibly script class) to handle the multiplayer option.
     void Update()
     {
         if(Input.GetButtonDown("Fire1"))
         {
-            Instantiate(noodlePrefab[Random.Range(0,noodlePrefab.Length)], spawnLocations[Random.Range(0, spawnLocations.Length)].position, quaternion.identity);
+            var randomNoodleSpawn = spawnLocations[Random.Range(0, spawnLocations.Count)];
+            var newNoodle = Instantiate(noodlePrefab[Random.Range(0,noodlePrefab.Count)], randomNoodleSpawn.position, quaternion.identity);
+            newNoodle.GetComponent<NoodleScript>().NoodleSpawnLocation = randomNoodleSpawn;
         }
     }
 
+    // Spawn a random noodle at a random time (within range), on a random flume (within range)
     IEnumerator TimedSpawns()
     {
         while (true)
         {
-            Instantiate(noodlePrefab[Random.Range(0,noodlePrefab.Length)], spawnLocations[Random.Range(0, spawnLocations.Length)].position, quaternion.identity);
+            var randomNoodleSpawn = spawnLocations[Random.Range(0, spawnLocations.Count)];
+            
+            var newNoodle = Instantiate(noodlePrefab[Random.Range(0,noodlePrefab.Count)], randomNoodleSpawn.position, quaternion.identity);
+            newNoodle.GetComponent<NoodleScript>().NoodleSpawnLocation = randomNoodleSpawn;
             yield return new WaitForSeconds(Random.Range(minTimeBetweenNoodles, maxTimeBetweenNoodles));
+            
         }
     }
 }

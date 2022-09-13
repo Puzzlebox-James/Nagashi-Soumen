@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2757741600612940945}
-  - component: {fileID: 3337024198674744917}
-  - component: {fileID: 2095990877938925278}
-  - component: {fileID: 7058904607762690194}
-  - component: {fileID: 9154749960764068196}
-  - component: {fileID: 1681471397515196350}
+  - component: {fileID: 2380442677933402755}
+  - component: {fileID: 3747168578117439652}
+  - component: {fileID: 6559250231600611826}
+  - component: {fileID: 423771845191643892}
+  - component: {fileID: 5286831058751526858}
   m_Layer: 0
   m_Name: SomenSeeable_0
   m_TagString: Untagged
@@ -29,13 +29,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7567220954351858595}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.89, y: -1.58, z: 0}
-  m_LocalScale: {x: 0.19850715, y: 0.1985071, z: 0.1985071}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3337024198674744917
+--- !u!212 &2380442677933402755
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &2095990877938925278
+--- !u!50 &3747168578117439652
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -107,7 +107,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &7058904607762690194
+--- !u!61 &6559250231600611826
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,7 +120,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.16131926, y: 0.024197847}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -131,9 +131,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6.29, y: 1.63}
+  m_Size: {x: 5.807313, y: 1.2097149}
   m_EdgeRadius: 0
---- !u!114 &9154749960764068196
+--- !u!114 &423771845191643892
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,8 +145,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ada2c367fe68804ea65930def8f0150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noodleSpeed: 3
---- !u!95 &1681471397515196350
+  noodleSpawnLocation: {fileID: 0}
+  noodleSpeed: 5
+  isMissed: 0
+--- !u!95 &5286831058751526858
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -159,7 +161,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 7e279183b3aaaf042a1d17d2e35d9a31, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1

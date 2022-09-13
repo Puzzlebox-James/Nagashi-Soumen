@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json.Serialization;
@@ -26,7 +27,7 @@ public class FlumeAnimation : MonoBehaviour
                 flumeFlowFar.Clear();
                 flumeFlowFar.Stop();
                 flumeFallFar.Stop();
-                farFlumeShutAnimator.GetComponent<SpriteRenderer>().enabled = true;
+                farFlumeShutAnimator.gameObject.SetActive(true);
                 farFlumeShutAnimator.SetTrigger("FirstShut");
                 break;
             
@@ -34,7 +35,7 @@ public class FlumeAnimation : MonoBehaviour
                 flumeFlowMid.Clear();
                 flumeFlowMid.Stop();
                 flumeFallMid.Stop();
-                midFlumeShutAnimator.GetComponent<SpriteRenderer>().enabled = true;
+                midFlumeShutAnimator.gameObject.SetActive(true);
                 midFlumeShutAnimator.SetTrigger("SecondShut");
                 break;
             
@@ -42,7 +43,7 @@ public class FlumeAnimation : MonoBehaviour
                 flumeFlowClose.Clear();
                 flumeFlowClose.Stop();
                 flumeFallClose.Stop();
-                closeFlumeShutAnimator.GetComponent<SpriteRenderer>().enabled = true;
+                closeFlumeShutAnimator.gameObject.SetActive(true);
                 closeFlumeShutAnimator.SetTrigger("LastShut");
                 break;
             
@@ -50,5 +51,11 @@ public class FlumeAnimation : MonoBehaviour
                 Debug.Log("Passed a bad Flume Close RunAnimation value"); 
                 break;
         }
+    }
+
+    // Uses colliders on the children of this animator object to squish any noodles and take care of an edge case.
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Destroy(other.gameObject);
     }
 }

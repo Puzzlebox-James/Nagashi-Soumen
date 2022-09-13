@@ -145,7 +145,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ada2c367fe68804ea65930def8f0150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noodleSpawnLocation: {fileID: 0}
   noodleSpeed: 3
+  isMissed: 0
 --- !u!95 &3255218601850760060
 Animator:
   serializedVersion: 3
@@ -159,7 +161,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 7e279183b3aaaf042a1d17d2e35d9a31, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
