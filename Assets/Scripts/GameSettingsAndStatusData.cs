@@ -90,3 +90,9 @@ public static class GameSettingsAndStatusData
         }
     }
 }
+
+
+// Create a UI script that assigns bools and values to this data script
+// Inside that script, we should have a Speed Difficlutly setting,
+// which increases the upper bound of the noodleSpeed property, based on the amount of noodles (hungryness) setting
+// 
