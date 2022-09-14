@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform pointOfInteractionClose;
     [SerializeField] private GameObject worldStatusCheck;
     [SerializeField] private GameObject flumeAnimationGameObject;
+    [SerializeField] private GameObject NoodleSpawner;
     
     [SerializeField] private float moveDuration;
 
@@ -74,7 +75,7 @@ public class PlayerController : MonoBehaviour
     // Nasty Pair of methods that check to see whether the player can move up or down
     private bool OpenUp()
     {
-        var flumeCheck = worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus;
+        var flumeCheck = GameSettingsAndStatusData.FlumeStatus;
 
         if ((transform.position == pointOfInteractionMid.position || transform.position == pointOfInteractionClose.position) && flumeCheck == 3)
         {
@@ -84,7 +85,7 @@ public class PlayerController : MonoBehaviour
     }
     bool OpenDown()
     {
-        var flumeCheck = worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus;
+        var flumeCheck = GameSettingsAndStatusData.FlumeStatus;
 
         if (transform == (pointOfInteractionMid || pointOfInteractionFar) && flumeCheck == 3)
         {
@@ -123,14 +124,14 @@ public class PlayerController : MonoBehaviour
         if (grabbableNoodleCollider != null && isGrabbing == null)
         {
             Destroy(grabbableNoodleCollider.gameObject);
-            worldStatusCheck.GetComponent<WorldStatusScript>().NoodleScore++;
+            GameSettingsAndStatusData.NoodleScore++;
             
             while (grabbableNoodleColliderOverflow.Count > 0)
             {
                 var extraNood = grabbableNoodleColliderOverflow[0].gameObject;
                 grabbableNoodleColliderOverflow.RemoveAt(0);
                 Destroy(extraNood);
-                worldStatusCheck.GetComponent<WorldStatusScript>().NoodleScore++;
+                GameSettingsAndStatusData.NoodleScore++;
             }
 
             playerAnimator.SetTrigger("Grab");
@@ -171,11 +172,11 @@ public class PlayerController : MonoBehaviour
     private void CheckAndDeployFlumeClose()
     {
         if (!Input.GetButtonDown("Submit")) return;
-        var flumesOpen = worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus;
-        var noodleScore = worldStatusCheck.GetComponent<WorldStatusScript>().NoodleScore;
-        var firstNoodleCloseScore = worldStatusCheck.GetComponent<WorldStatusScript>().FirstNoodleCloseFlumeScore;
-        var secondNoodleCloseScore = worldStatusCheck.GetComponent<WorldStatusScript>().SecondNoodleCloseFlumeScore;
-        var winNoodleCloseScore = worldStatusCheck.GetComponent<WorldStatusScript>().WinNoodleCloseFlumeScore;
+        var flumesOpen = GameSettingsAndStatusData.FlumeStatus;
+        var noodleScore = GameSettingsAndStatusData.NoodleScore;
+        var firstNoodleCloseScore = GameSettingsAndStatusData.FirstNoodleCloseFlumeScore;
+        var secondNoodleCloseScore = GameSettingsAndStatusData.SecondNoodleCloseFlumeScore;
+        var winNoodleCloseScore = GameSettingsAndStatusData.WinNoodleCloseFlumeScore;
 
         switch (flumesOpen)
         {
@@ -183,12 +184,14 @@ public class PlayerController : MonoBehaviour
                 if (noodleScore > firstNoodleCloseScore)
                 {
                     FlumeClose(3);
+                    NoodleSpawner.GetComponent<NoodleSpawnerScript>().NoodleSpawnReduction(2);
                 }
                 break;
             case 2:
                 if (noodleScore > secondNoodleCloseScore)
                 {
                     FlumeClose(2);
+                    NoodleSpawner.GetComponent<NoodleSpawnerScript>().NoodleSpawnReduction(1);
                 }
                 break;
             case 1:
@@ -207,7 +210,7 @@ public class PlayerController : MonoBehaviour
         switch (flumecase)
         {
             case 3:
-                worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus = 2;
+                GameSettingsAndStatusData.FlumeStatus = 2;
                 flumeAnimationGameObject.GetComponent<FlumeAnimation>().RunAnimation(2);
                 
                 if (!(transform.position == pointOfInteractionMid.position || transform.position == pointOfInteractionClose.position))
@@ -221,7 +224,7 @@ public class PlayerController : MonoBehaviour
                 break;
             
             case 2:
-                worldStatusCheck.GetComponent<WorldStatusScript>().FlumeStatus = 1;
+                GameSettingsAndStatusData.FlumeStatus = 1;
                 flumeAnimationGameObject.GetComponent<FlumeAnimation>().RunAnimation(1);
                 
                 if (transform.position != pointOfInteractionClose.position)

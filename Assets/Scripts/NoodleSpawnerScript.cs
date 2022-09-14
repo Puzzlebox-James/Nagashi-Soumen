@@ -15,6 +15,24 @@ public class NoodleSpawnerScript : MonoBehaviour
     [SerializeField] private List<GameObject> noodlePrefab;
 
 
+
+
+    public void NoodleSpawnReduction(int flumestatus)
+    {
+        switch (flumestatus)
+        {
+            case 2:
+                spawnLocations.RemoveAt(2);
+                break;
+            case 1:
+                spawnLocations.RemoveAt(1);
+                break;
+            default:
+                break;
+        }
+    }
+
+
     private void Start()
     {
         StartCoroutine(TimedSpawns());
