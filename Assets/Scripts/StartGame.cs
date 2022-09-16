@@ -5,11 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class StartGame : MonoBehaviour
 {
-    
+
     [SerializeField] private ToggleTalker SoloOrVSToggle;
     [SerializeField] private ToggleTalker FlowToggle;
     [SerializeField] private ToggleTalker NumberOfNoodles;
-
+    [SerializeField] private ToggleTalker MissesAllowed;
+    
     public void StartButtonPressed()
     {
         SoloOrVSToggle.SendData("SoloOrVS");

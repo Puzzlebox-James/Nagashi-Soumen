@@ -73,6 +73,17 @@ public class ToggleTalker : MonoBehaviour
                 };
                 break;
             
+            case "MissesAllowed":
+                GameSettingsAndStatusData.NumberOfNoodles = currentSelection.name switch
+                {
+                    "Lavish" => 20,
+                    "Excess" => 8,
+                    "Frugal" => 3,
+                    "None" => 0,
+                    _ => GameSettingsAndStatusData.NumberOfNoodles
+                };
+                break;
+            
         }
     }
 }
