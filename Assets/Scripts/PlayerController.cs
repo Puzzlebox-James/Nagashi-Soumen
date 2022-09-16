@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform pointOfInteractionFar;
     [SerializeField] private Transform pointOfInteractionMid;
     [SerializeField] private Transform pointOfInteractionClose;
-    [SerializeField] private GameObject worldStatusCheck;
     [SerializeField] private GameObject flumeAnimationGameObject;
     [SerializeField] private GameObject NoodleSpawner;
     
@@ -185,6 +184,7 @@ public class PlayerController : MonoBehaviour
                 {
                     FlumeClose(3);
                     NoodleSpawner.GetComponent<NoodleSpawnerScript>().NoodleSpawnReduction(2);
+                    NoodleSpawner.GetComponent<NoodleSpawnerScript>().FlowRateIncrease();
                 }
                 break;
             case 2:
@@ -192,6 +192,7 @@ public class PlayerController : MonoBehaviour
                 {
                     FlumeClose(2);
                     NoodleSpawner.GetComponent<NoodleSpawnerScript>().NoodleSpawnReduction(1);
+                    NoodleSpawner.GetComponent<NoodleSpawnerScript>().FlowRateIncrease();
                 }
                 break;
             case 1:

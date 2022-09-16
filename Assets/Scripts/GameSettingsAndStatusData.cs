@@ -6,10 +6,49 @@ using UnityEngine;
 
 public static class GameSettingsAndStatusData
 {
+    // ================= Start Settings ================== //
+
+    private static bool soloSelected;
+    public static bool SoloSelected
+    {
+        get => soloSelected;
+        set => soloSelected = value;
+    }
+
+    private static int flowSelection;
+    public static int FlowSelection
+    {
+        get => flowSelection;
+        set
+        {
+            if (value < 0 || value > 4)
+            {
+                value = 2;
+            }
+            flowSelection = value;
+        }
+    }
+
+
     // =============== Noodles ================ //
     
+    // Number of Noodles
+    private static int numberOfNoodles = 30;
+    public static int NumberOfNoodles
+    {
+        get => numberOfNoodles;
+        set
+        {
+            if (value == 0)
+            {
+                value = 1;
+            }
+            numberOfNoodles = value;
+        }
+    }
+    
     // Noodle min and max speed.
-    private static float noodleSpeedTop = 10;
+    private static float noodleSpeedTop = 4;
     public static float NoodleSpeedTop
     {
         get => noodleSpeedTop;
@@ -46,14 +85,6 @@ public static class GameSettingsAndStatusData
     {
         get => noodleScore;
         set => noodleScore = value;
-    }
-    
-    // For multiplayer.
-    private static int numberOfNoodles = 30;
-    public static int NumberOfNoodles
-    {
-        get => numberOfNoodles;
-        set => numberOfNoodles = value;
     }
     
     

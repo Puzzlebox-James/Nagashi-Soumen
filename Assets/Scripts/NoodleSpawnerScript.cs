@@ -14,8 +14,7 @@ public class NoodleSpawnerScript : MonoBehaviour
     [SerializeField] private List<Transform> spawnLocations;
     [SerializeField] private List<GameObject> noodlePrefab;
 
-
-
+    
 
     public void NoodleSpawnReduction(int flumestatus)
     {
@@ -31,16 +30,45 @@ public class NoodleSpawnerScript : MonoBehaviour
                 break;
         }
     }
+    
+    // Magic Variable Setting for the increase in noodle speed per call, based on flow difficulty selection.
+    public void FlowRateIncrease()
+    {
+        switch (GameSettingsAndStatusData.FlowSelection)
+        {
+            case 0: // Gentle
+                GameSettingsAndStatusData.NoodleSpeedBottom += 1;
+                GameSettingsAndStatusData.NoodleSpeedTop += 2;
+                break;
+            case 1: // Predictable
+                GameSettingsAndStatusData.NoodleSpeedBottom += 2;
+                GameSettingsAndStatusData.NoodleSpeedTop += 2;
+                break;
+            case 2: // Zippy
+                GameSettingsAndStatusData.NoodleSpeedBottom += 2;
+                GameSettingsAndStatusData.NoodleSpeedTop += 2;
+                break;
+            case 3: // Wild!
+                GameSettingsAndStatusData.NoodleSpeedTop += 2;
+                break;
+        }
+    }
 
 
     private void Start()
     {
-        StartCoroutine(TimedSpawns());
+        if (GameSettingsAndStatusData.SoloSelected)
+        {
+            StartCoroutine(TimedSpawns());
+        }
+
+        StartCoroutine(NoodleSpeedupCheck());
     }
 
-    // Bust this out into it's own method (possibly script class) to handle the multiplayer option.
+
     void Update()
     {
+        if (GameSettingsAndStatusData.SoloSelected == true) return;
         if(Input.GetButtonDown("Fire1"))
         {
             var randomNoodleSpawn = spawnLocations[Random.Range(0, spawnLocations.Count)];
@@ -60,6 +88,35 @@ public class NoodleSpawnerScript : MonoBehaviour
             newNoodle.GetComponent<NoodleScript>().NoodleSpawnLocation = randomNoodleSpawn;
             yield return new WaitForSeconds(Random.Range(minTimeBetweenNoodles, maxTimeBetweenNoodles));
             
+        }
+    }
+
+    IEnumerator NoodleSpeedupCheck()
+    {
+        var secondActivated = false;
+        var firstActivated = false;
+        var firstThird =  GameSettingsAndStatusData.NumberOfNoodles * (1 / 3.0);
+        var secondThird = GameSettingsAndStatusData.NumberOfNoodles * (2 / 3.0);
+        
+        while (!secondActivated)
+        {
+            if (GameSettingsAndStatusData.NoodleScore > firstThird && firstActivated == false)
+            {
+                FlowRateIncrease();
+                firstActivated = true;
+                Debug.Log("First Activation");
+            }
+            if (GameSettingsAndStatusData.NoodleScore > secondThird)
+            {
+                FlowRateIncrease();
+                secondActivated = true;
+                Debug.Log("Second Activation");
+            }
+            
+            Debug.Log("NoodleScore" + GameSettingsAndStatusData.NoodleScore);
+            Debug.Log("Number Of Noodles" + GameSettingsAndStatusData.NumberOfNoodles);
+            
+            yield return new WaitForSeconds(2);
         }
     }
 }
