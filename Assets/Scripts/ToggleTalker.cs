@@ -26,7 +26,6 @@ public class ToggleTalker : MonoBehaviour
                 if (currentSelection.name == "VS")
                 {
                     GameSettingsAndStatusData.SoloSelected = false;
-                    Debug.Log(currentSelection.name);
                 }
                 else
                 {
@@ -74,13 +73,13 @@ public class ToggleTalker : MonoBehaviour
                 break;
             
             case "MissesAllowed":
-                GameSettingsAndStatusData.NumberOfNoodles = currentSelection.name switch
+                GameSettingsAndStatusData.MissesAllowed = currentSelection.name switch
                 {
                     "Lavish" => 20,
                     "Excess" => 8,
                     "Frugal" => 3,
                     "None" => 0,
-                    _ => GameSettingsAndStatusData.NumberOfNoodles
+                    _ => GameSettingsAndStatusData.MissesAllowed
                 };
                 break;
             

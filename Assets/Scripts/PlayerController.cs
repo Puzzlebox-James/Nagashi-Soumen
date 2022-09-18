@@ -196,8 +196,12 @@ public class PlayerController : MonoBehaviour
                 }
                 break;
             case 1:
-                FlumeClose(1);
-                //Victory?
+                if (noodleScore >= winNoodleCloseScore)
+                {
+                    // TIME TO WIN
+                    FlumeClose(1);
+                }
+
                 break;
             default:
                 Debug.Log("Busted case checking on flumes closing");
@@ -213,6 +217,7 @@ public class PlayerController : MonoBehaviour
             case 3:
                 GameSettingsAndStatusData.FlumeStatus = 2;
                 flumeAnimationGameObject.GetComponent<FlumeAnimation>().RunAnimation(2);
+                UIVisuals.UIVisualsInstance.FadeShiftOut();
                 
                 if (!(transform.position == pointOfInteractionMid.position || transform.position == pointOfInteractionClose.position))
                 {
@@ -239,8 +244,10 @@ public class PlayerController : MonoBehaviour
                 break;
             
             case 1:
+                // VICTORY! STOP THE SPAWNING!
                 flumeAnimationGameObject.GetComponent<FlumeAnimation>().RunAnimation(0);
-                //Run VICTORY!
+                Destroy(NoodleSpawner);
+                Victory.VictoryInstance.Show();
                 break;
             default:
                 Debug.Log("Error in flume status or FlumeClose method.");

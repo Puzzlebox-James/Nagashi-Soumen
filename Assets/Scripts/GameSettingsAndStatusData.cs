@@ -15,6 +15,7 @@ public static class GameSettingsAndStatusData
         set => soloSelected = value;
     }
 
+    // Speed Difficulty, drives noodle speed top and bottom (toggle talker)
     private static int flowSelection;
     public static int FlowSelection
     {
@@ -28,7 +29,14 @@ public static class GameSettingsAndStatusData
             flowSelection = value;
         }
     }
-
+    
+    // Amount of noodles missed allowed.
+    private static int missesAllowed = 3;
+    public static int MissesAllowed
+    {
+        get => missesAllowed;
+        set => missesAllowed = value;
+    }
 
     // =============== Noodles ================ //
     
@@ -70,15 +78,7 @@ public static class GameSettingsAndStatusData
             noodleSpeedBottom = value;
         }
     }
-    
-    // Amount of noodles missed allowed.
-    private static int missesAllowed = 3;
-    public static int MissesAllowed
-    {
-        get => missesAllowed;
-        set => missesAllowed = value;
-    }
-    
+
     // Total amount of noodles grabbed. Score.
     private static int noodleScore;
     public static int NoodleScore
@@ -91,20 +91,20 @@ public static class GameSettingsAndStatusData
     // ================ Flumes ================ //
     
     // Amount of noodles required to close flumes.
-    private static int firstNoodleCloseFlumeScore;
-    public static int FirstNoodleCloseFlumeScore
+    private static double firstNoodleCloseFlumeScore;
+    public static double FirstNoodleCloseFlumeScore
     {
         get => firstNoodleCloseFlumeScore;
         set => firstNoodleCloseFlumeScore = value;
     }
-    private static int secondNoodleCloseFlumeScore;
-    public static int SecondNoodleCloseFlumeScore
+    private static double secondNoodleCloseFlumeScore;
+    public static double SecondNoodleCloseFlumeScore
     {
         get => secondNoodleCloseFlumeScore;
         set => secondNoodleCloseFlumeScore = value;
     }
-    private static int winNoodleCloseFlumeScore;
-    public static int WinNoodleCloseFlumeScore
+    private static double winNoodleCloseFlumeScore;
+    public static double WinNoodleCloseFlumeScore
     {
         get => winNoodleCloseFlumeScore;
         set => winNoodleCloseFlumeScore = value;
@@ -121,9 +121,3 @@ public static class GameSettingsAndStatusData
         }
     }
 }
-
-
-// Create a UI script that assigns bools and values to this data script
-// Inside that script, we should have a Speed Difficlutly setting,
-// which increases the upper bound of the noodleSpeed property, based on the amount of noodles (hungryness) setting
-// 

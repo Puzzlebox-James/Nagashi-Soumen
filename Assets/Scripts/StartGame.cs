@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,25 @@ public class StartGame : MonoBehaviour
         SoloOrVSToggle.SendData("SoloOrVS");
         FlowToggle.SendData("FlowToggle");
         NumberOfNoodles.SendData("NumberOfNoodles");
+        MissesAllowed.SendData("MissesAllowed");
+
+        if (GameSettingsAndStatusData.NumberOfNoodles < 100)
+        {
+            GameSettingsAndStatusData.FirstNoodleCloseFlumeScore =  GameSettingsAndStatusData.NumberOfNoodles * (1 / 3.0);
+            GameSettingsAndStatusData.SecondNoodleCloseFlumeScore = GameSettingsAndStatusData.NumberOfNoodles * (2 / 3.0);
+            
+            Debug.Log(GameSettingsAndStatusData.FirstNoodleCloseFlumeScore + "FIRST FLUME CLOSE SCORE");
+        } else {
+            
+            GameSettingsAndStatusData.FirstNoodleCloseFlumeScore = 30;
+            GameSettingsAndStatusData.SecondNoodleCloseFlumeScore = 60;
+            GameSettingsAndStatusData.WinNoodleCloseFlumeScore = 100;
+        }
 
         SceneManager.LoadScene("MainScene");
     }
 }
+
+
+// Checker somewhere that looks at noodle score vs number of noodles, along with flume status to display victory screen.
+// Probably on a victory or defeat script. Can be a singleton that lives in Main Scene.

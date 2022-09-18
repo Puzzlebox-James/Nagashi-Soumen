@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: 5f0670a4a2be59e488ef4c95a4f087c4
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Chaparral Pro
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 3beb8abaf6eb0504ab295a5bc01aed75, type: 3}
+  - {fileID: 12800000, guid: 9e7abed4bbd45f44abc29720f3f581a7, type: 3}
+  - {fileID: 12800000, guid: e6fe949509b24ea4fbb5b2540ef0d843, type: 3}
+  - {fileID: 12800000, guid: b42f317185b77db4eb6767e1b5326106, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

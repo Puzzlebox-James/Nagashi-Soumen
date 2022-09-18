@@ -14,7 +14,7 @@ public class NoodleSpawnerScript : MonoBehaviour
     [SerializeField] private List<Transform> spawnLocations;
     [SerializeField] private List<GameObject> noodlePrefab;
 
-    
+    [SerializeField] private bool canSpawnNoodle = true;
 
     public void NoodleSpawnReduction(int flumestatus)
     {
@@ -53,8 +53,7 @@ public class NoodleSpawnerScript : MonoBehaviour
                 break;
         }
     }
-
-
+    
     private void Start()
     {
         if (GameSettingsAndStatusData.SoloSelected)
@@ -66,31 +65,65 @@ public class NoodleSpawnerScript : MonoBehaviour
     }
 
 
+    // Used strictly for 'multiplayer', were a player can choose the noodle spawn locations and timing.
     void Update()
     {
         if (GameSettingsAndStatusData.SoloSelected == true) return;
-        if(Input.GetButtonDown("Fire1"))
+        
+        if(Input.GetButtonDown("Fire1") && canSpawnNoodle)
         {
-            var randomNoodleSpawn = spawnLocations[Random.Range(0, spawnLocations.Count)];
-            var newNoodle = Instantiate(noodlePrefab[Random.Range(0,noodlePrefab.Count)], randomNoodleSpawn.position, quaternion.identity);
-            newNoodle.GetComponent<NoodleScript>().NoodleSpawnLocation = randomNoodleSpawn;
+            var noodleSpawn = spawnLocations[0]; // Close Spawn
+            var newNoodle = Instantiate(noodlePrefab[Random.Range(0,noodlePrefab.Count)], noodleSpawn.position, quaternion.identity);
+            newNoodle.GetComponent<NoodleScript>().NoodleSpawnLocation = noodleSpawn;
+            canSpawnNoodle = false;
+            StartCoroutine(WaitJustASec());
+        }
+        if(Input.GetButtonDown("Fire2") && canSpawnNoodle)
+        {
+            if (spawnLocations.Count != 3) return;
+            var noodleSpawn = spawnLocations[2]; // Far Spawn
+            var newNoodle = Instantiate(noodlePrefab[Random.Range(0,noodlePrefab.Count)], noodleSpawn.position, quaternion.identity);
+            newNoodle.GetComponent<NoodleScript>().NoodleSpawnLocation = noodleSpawn;
+            canSpawnNoodle = false;
+            StartCoroutine(WaitJustASec());
+        }
+        if(Input.GetButtonDown("Fire3") && canSpawnNoodle)
+        {
+            if (spawnLocations.Count != 2) return;
+            var noodleSpawn = spawnLocations[1]; // Mid Spawn
+            var newNoodle = Instantiate(noodlePrefab[Random.Range(0,noodlePrefab.Count)], noodleSpawn.position, quaternion.identity);
+            newNoodle.GetComponent<NoodleScript>().NoodleSpawnLocation = noodleSpawn;
+            canSpawnNoodle = false;
+            StartCoroutine(WaitJustASec());
         }
     }
 
-    // Spawn a random noodle at a random time (within range), on a random flume (within range)
+    // Make it so the noodle spawning player can't just spam 'em.
+    private IEnumerator WaitJustASec()
+    {
+        yield return new WaitForSeconds(.2f);
+        canSpawnNoodle = true;
+    }
+    
+    
+    
+    // Spawn a random noodle at a random time (within range), on a random flume (within range). Solo Mode.
     IEnumerator TimedSpawns()
     {
-        while (true)
+        for (var i = 0; i < GameSettingsAndStatusData.NumberOfNoodles; i += 1)
         {
             var randomNoodleSpawn = spawnLocations[Random.Range(0, spawnLocations.Count)];
             
             var newNoodle = Instantiate(noodlePrefab[Random.Range(0,noodlePrefab.Count)], randomNoodleSpawn.position, quaternion.identity);
             newNoodle.GetComponent<NoodleScript>().NoodleSpawnLocation = randomNoodleSpawn;
             yield return new WaitForSeconds(Random.Range(minTimeBetweenNoodles, maxTimeBetweenNoodles));
-            
         }
+        
+        Victory.VictoryInstance.Show();
     }
 
+    
+    // Checks every 2 seconds if we passed a threshold to increase noodle speed.
     IEnumerator NoodleSpeedupCheck()
     {
         var secondActivated = false;
@@ -112,9 +145,6 @@ public class NoodleSpawnerScript : MonoBehaviour
                 secondActivated = true;
                 Debug.Log("Second Activation");
             }
-            
-            Debug.Log("NoodleScore" + GameSettingsAndStatusData.NoodleScore);
-            Debug.Log("Number Of Noodles" + GameSettingsAndStatusData.NumberOfNoodles);
             
             yield return new WaitForSeconds(2);
         }
