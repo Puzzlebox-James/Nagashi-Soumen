@@ -27,9 +27,10 @@ public class StartGame : MonoBehaviour
             Debug.Log(GameSettingsAndStatusData.FirstNoodleCloseFlumeScore + "FIRST FLUME CLOSE SCORE");
         } else {
             
-            GameSettingsAndStatusData.FirstNoodleCloseFlumeScore = 30;
-            GameSettingsAndStatusData.SecondNoodleCloseFlumeScore = 60;
-            GameSettingsAndStatusData.WinNoodleCloseFlumeScore = 100;
+            // THIS IS FOR THE GLUTTON SETTING
+            GameSettingsAndStatusData.FirstNoodleCloseFlumeScore = 3;
+            GameSettingsAndStatusData.SecondNoodleCloseFlumeScore = 6;
+            GameSettingsAndStatusData.WinNoodleCloseFlumeScore = 10;
         }
 
         SceneManager.LoadScene("MainScene");

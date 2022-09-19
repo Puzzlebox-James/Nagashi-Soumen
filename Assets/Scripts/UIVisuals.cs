@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIVisuals : MonoBehaviour
 {
 
+    [SerializeField] private Text NoodleScore;
     [SerializeField] private SpriteRenderer ShiftKey;
     private Coroutine ShiftKeyIsFadding;
     
@@ -23,6 +25,12 @@ public class UIVisuals : MonoBehaviour
         StartCoroutine(CheckStatus());
     }
 
+    private void Update()
+    {
+        NoodleScore.text = "x " + GameSettingsAndStatusData.NoodleScore.ToString();
+    }
+
+
     private IEnumerator CheckStatus()
     {
         while (true)
@@ -37,6 +45,10 @@ public class UIVisuals : MonoBehaviour
             {
                 ShiftKeyIsFadding = StartCoroutine(FadeTo(ShiftKey, 1, 5));
             }
+            if(GameSettingsAndStatusData.NoodleScore > GameSettingsAndStatusData.WinNoodleCloseFlumeScore && GameSettingsAndStatusData.FlumeStatus == 1)
+            {
+                ShiftKeyIsFadding = StartCoroutine(FadeTo(ShiftKey, 1, 5));
+            }
             
             yield return new WaitForSeconds(2);
         }
@@ -44,7 +56,7 @@ public class UIVisuals : MonoBehaviour
 
     public void FadeShiftOut()
     {
-        StopCoroutine(ShiftKeyIsFadding);
+        if (ShiftKey != null){ StopCoroutine(ShiftKeyIsFadding); }
         ShiftKeyIsFadding = StartCoroutine(FadeTo(ShiftKey, 0, 2));
     }
     
@@ -65,6 +77,7 @@ public class UIVisuals : MonoBehaviour
     public void Restart()
     {
         GameSettingsAndStatusData.NoodleScore = 0;
+        GameSettingsAndStatusData.FlumeStatus = 3;
         SceneManager.LoadScene("TitleScene");
     }
     

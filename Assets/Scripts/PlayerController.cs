@@ -232,6 +232,7 @@ public class PlayerController : MonoBehaviour
             case 2:
                 GameSettingsAndStatusData.FlumeStatus = 1;
                 flumeAnimationGameObject.GetComponent<FlumeAnimation>().RunAnimation(1);
+                UIVisuals.UIVisualsInstance.FadeShiftOut();
                 
                 if (transform.position != pointOfInteractionClose.position)
                 {

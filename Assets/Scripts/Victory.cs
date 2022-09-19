@@ -5,12 +5,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
+using Image = UnityEngine.UI.Image;
 
 public class Victory : MonoBehaviour
 {
     
     [SerializeField] private Button PlayAgainButton;
     [SerializeField] private Text ShowScore;
+    [SerializeField] private SpriteRenderer Perfect;
     
     public static Victory VictoryInstance;
     private void Awake()
@@ -27,13 +29,21 @@ public class Victory : MonoBehaviour
     {
         PlayAgainButton.gameObject.SetActive(true);
         ShowScore.gameObject.SetActive(true);
-        ShowScore.text = GameSettingsAndStatusData.NoodleScore + " / " + GameSettingsAndStatusData.NumberOfNoodles + "Blah blah";
+        ShowScore.text = GameSettingsAndStatusData.NoodleScore + " / " + GameSettingsAndStatusData.NumberOfNoodles + " Noodles Grabbed!";
+    }
+
+
+    public IEnumerator CheckAndDisplay()
+    {
+        while (FindObjectOfType<NoodleScript>() != null)
+        {
+            yield return new WaitForSeconds(1);
+        }
+        Show();
         if (GameSettingsAndStatusData.NoodleScore == GameSettingsAndStatusData.NumberOfNoodles)
         {
-            // Show the PERFECT!
-            // Actually this is always fail because the noodle isn't grabbed when we fire this...
+            Perfect.gameObject.SetActive(true);
         }
     }
-    
     
 }

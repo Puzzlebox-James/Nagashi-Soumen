@@ -64,8 +64,8 @@ public class ToggleTalker : MonoBehaviour
             case "NumberOfNoodles":
                 GameSettingsAndStatusData.NumberOfNoodles = currentSelection.name switch
                 {
-                    "Peckish" => 30,
-                    "JustHungry" => 40,
+                    "Peckish" => 20,
+                    "JustHungry" => 30,
                     "Starving" => 50,
                     "Glutton" => 1000,
                     _ => GameSettingsAndStatusData.NumberOfNoodles

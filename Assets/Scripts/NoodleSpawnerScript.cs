@@ -15,6 +15,8 @@ public class NoodleSpawnerScript : MonoBehaviour
     [SerializeField] private List<GameObject> noodlePrefab;
 
     [SerializeField] private bool canSpawnNoodle = true;
+    private int maxNumberOfNoodles = 0;
+    private bool showVictory;
 
     public void NoodleSpawnReduction(int flumestatus)
     {
@@ -70,11 +72,19 @@ public class NoodleSpawnerScript : MonoBehaviour
     {
         if (GameSettingsAndStatusData.SoloSelected == true) return;
         
+        if (showVictory) return;
+        if (maxNumberOfNoodles >= GameSettingsAndStatusData.NumberOfNoodles)
+        {
+            StartCoroutine(Victory.VictoryInstance.CheckAndDisplay());
+            showVictory = true;
+        }
+        
         if(Input.GetButtonDown("Fire1") && canSpawnNoodle)
         {
             var noodleSpawn = spawnLocations[0]; // Close Spawn
             var newNoodle = Instantiate(noodlePrefab[Random.Range(0,noodlePrefab.Count)], noodleSpawn.position, quaternion.identity);
             newNoodle.GetComponent<NoodleScript>().NoodleSpawnLocation = noodleSpawn;
+            maxNumberOfNoodles++;
             canSpawnNoodle = false;
             StartCoroutine(WaitJustASec());
         }
@@ -84,15 +94,18 @@ public class NoodleSpawnerScript : MonoBehaviour
             var noodleSpawn = spawnLocations[2]; // Far Spawn
             var newNoodle = Instantiate(noodlePrefab[Random.Range(0,noodlePrefab.Count)], noodleSpawn.position, quaternion.identity);
             newNoodle.GetComponent<NoodleScript>().NoodleSpawnLocation = noodleSpawn;
+            maxNumberOfNoodles++;
             canSpawnNoodle = false;
             StartCoroutine(WaitJustASec());
         }
         if(Input.GetButtonDown("Fire3") && canSpawnNoodle)
         {
-            if (spawnLocations.Count != 2) return;
+            if (spawnLocations.Count != 3 && spawnLocations.Count != 2) return;
             var noodleSpawn = spawnLocations[1]; // Mid Spawn
-            var newNoodle = Instantiate(noodlePrefab[Random.Range(0,noodlePrefab.Count)], noodleSpawn.position, quaternion.identity);
+            var newNoodle = Instantiate(noodlePrefab[Random.Range(0, noodlePrefab.Count)], noodleSpawn.position,
+                quaternion.identity);
             newNoodle.GetComponent<NoodleScript>().NoodleSpawnLocation = noodleSpawn;
+            maxNumberOfNoodles++;
             canSpawnNoodle = false;
             StartCoroutine(WaitJustASec());
         }
@@ -119,7 +132,7 @@ public class NoodleSpawnerScript : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(minTimeBetweenNoodles, maxTimeBetweenNoodles));
         }
         
-        Victory.VictoryInstance.Show();
+        StartCoroutine(Victory.VictoryInstance.CheckAndDisplay());
     }
 
     
